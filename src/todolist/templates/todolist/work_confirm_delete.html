@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}worklist_confirm_delete.html{% endblock %}
+
+{% block content %}
+<div class="album py-5 bg-light">
+    <div class="container">
+        <div class="col-md-4 col-sm-4">
+            <div class="card mb-4 box-shadow">
+                <form action="." method="post">{% csrf_token %}
+                    <div class="card-body">
+                        <h5 class="card-title">"{{ object }}"를 삭제하겠습니까?</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <input type="submit" class="btn btn-danger" value="삭제하기"/>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
