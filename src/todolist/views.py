@@ -38,8 +38,8 @@ class WorkCreateView(LoginRequiredMixin, CreateView):
         context = super(WorkCreateView, self).get_context_data(**kwargs)
         if self.request.POST:
             context['formset'] = CardInlineFormSet(self.request.POST)
-        else:
-            context['formset'] = CardInlineFormSet()
+            return context
+        context['formset'] = CardInlineFormSet()
         return context
 
     # form은 work, formset은 card
@@ -54,8 +54,7 @@ class WorkCreateView(LoginRequiredMixin, CreateView):
             formset.instance = self.object
             formset.save()
             return redirect('todolist:index')
-        else:
-            return self.render_to_response(self.get_context_data(form=form))
+        return self.render_to_response(self.get_context_data(form=form))
 
 
 class WorkUpdateView(LoginRequiredMixin, UpdateView):
@@ -71,10 +70,10 @@ class WorkUpdateView(LoginRequiredMixin, UpdateView):
         context = super(WorkUpdateView, self).get_context_data(**kwargs)
         if self.request.POST:
             context['formset'] = CardInlineFormSet(self.request.POST, instance=self.object)
-        else:
-            context['formset'] = CardInlineFormSet(instance=self.object)
-            context['formset_id'] = list(Card.objects.filter(owner=self.request.user).filter(work=self.kwargs['pk']).values_list('id',flat=True))
-            print(context['formset_id'])
+            return context
+        context['formset'] = CardInlineFormSet(instance=self.object)
+        context['formset_id'] = list(Card.objects.filter(owner=self.request.user).filter(work=self.kwargs['pk']).values_list('id',flat=True))
+        print(context['formset_id'])
         return context
 
     def form_valid(self, form):
@@ -88,8 +87,7 @@ class WorkUpdateView(LoginRequiredMixin, UpdateView):
             formset.instance = self.object
             formset.save()
             return redirect('todolist:index')
-        else:
-            return self.render_to_response(self.get_context_data(form=form))
+        return self.render_to_response(self.get_context_data(form=form))
 
 
 class WorkDeleteView(LoginRequiredMixin, DeleteView):
@@ -126,9 +124,8 @@ class CardUpdateView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         if self.request.user != Card.objects.get(id=self.kwargs['pk']).owner:
             raise Http404
-        else:
-            context = super(CardUpdateView, self).get_context_data(**kwargs)
-            return context
+        context = super(CardUpdateView, self).get_context_data(**kwargs)
+        return context
 
 
 class CardDeleteView(LoginRequiredMixin, DeleteView):
@@ -138,6 +135,5 @@ class CardDeleteView(LoginRequiredMixin, DeleteView):
     def get_context_data(self, **kwargs):
         if self.request.user != Card.objects.get(id=self.kwargs['pk']).owner:
             raise Http404
-        else:
-            context = super(CardDeleteView, self).get_context_data(**kwargs)
-            return context
+        context = super(CardDeleteView, self).get_context_data(**kwargs)
+        return context
