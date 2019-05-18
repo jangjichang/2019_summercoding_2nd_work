@@ -42,7 +42,7 @@
                                         <a class="text-dark" href="{% url 'todolist:card_update' work.id card.id %}">
                                         <li class="list-group-item {%if card.done == True %} job-done {% endif %}"><p>{{ card.name }}</p></a>
                                             {% if card.description %}
-                                            <button type="button" class="btn btn-info"><a class="text-white" href="{% url 'todolist:card_update' work.id card.id %}">설명</a></button>
+                                            <button type="button" class="btn btn-info"><a class="text-white" href="{% url 'todolist:card_update' work.id card.id %}">내용</a></button>
                                             {% endif %}
                                             {% if card.deadline %}
                                                 <button type="button" class="btn btn-warning"><a class="text-white" href="{% url 'todolist:card_update' work.id card.id %}">
