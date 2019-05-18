@@ -9,7 +9,7 @@ class DateInput(forms.DateInput):
 
 
 class WorkPriorityInput(forms.Select):
-    choices = Work.CARD_PRIORITY
+    choices = Work.WORK_PRIORITY
 
 
 class CardPriorityInput(forms.Select):
