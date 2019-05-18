@@ -31,8 +31,8 @@
             {% if object_list %}
                 {% for work in object_list %}
                     <div class="col-md-4 col-sm-4">
-                        <div class="card mb-4 box-shadow {% if work.done == True %} job-done {% endif %}">
-                            <div class="card-body">
+                        <div class="card mb-4 box-shadow">
+                            <div class="card-body {% if work.done == True %} job-done {% endif %}">
                                 <h5 class="card-title"><a class="text-dark" href="{% url 'todolist:work_update' work.id %}">{{ work.name }}</a></h5>
                             </div>
                             <ul class="list-group list-group-flush">
