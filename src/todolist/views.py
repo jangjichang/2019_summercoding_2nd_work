@@ -12,11 +12,15 @@ import datetime
 
 
 class WorkCardLV(LoginRequiredMixin, ListView):
+    """
+    사용자의 TODO (Work model)를 보여주는 ListView
+    """
     model = Work
 
     def get_queryset(self):
         return Work.objects.filter(owner=self.request.user)
 
+    """마감기한이 지난 TODO (Work, Card model)를 context 변수에 update 하는 메소드"""
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(WorkCardLV, self).get_context_data(**kwargs)
         today = datetime.datetime.now().strftime('%Y-%m-%d')
@@ -30,6 +34,10 @@ class WorkCardLV(LoginRequiredMixin, ListView):
 
 
 class WorkCreateView(LoginRequiredMixin, CreateView):
+    """
+    사용자의 TODO (Work model)를 만드는 CreateView
+    CardInlineFormset을 이용하여 Work와 Card를 한 페이지에서 생성 가능
+    """
     model = Work
     form_class = WorkForm
     success_url = reverse_lazy('todolist:index')
@@ -42,7 +50,6 @@ class WorkCreateView(LoginRequiredMixin, CreateView):
         context['formset'] = CardInlineFormSet()
         return context
 
-    # form은 work, formset은 card
     def form_valid(self, form):
         form.instance.owner = self.request.user
         context = self.get_context_data()
@@ -58,10 +65,14 @@ class WorkCreateView(LoginRequiredMixin, CreateView):
 
 
 class WorkUpdateView(LoginRequiredMixin, UpdateView):
+    """
+    사용자의 TODO (Work model)를 수정하는 UpdateView
+    """
     model = Work
     form_class = WorkForm
     success_url = reverse_lazy('todolist:index')
 
+    """사용자가 소유하지 않은 Work를 수정하는 url 접근시 404 error 발생"""
     def get_queryset(self):
         work_update_obj = Work.objects.filter(owner=self.request.user).filter(id=self.kwargs['pk'])
         return work_update_obj
@@ -72,7 +83,7 @@ class WorkUpdateView(LoginRequiredMixin, UpdateView):
             context['formset'] = CardInlineFormSet(self.request.POST, instance=self.object)
             return context
         context['formset'] = CardInlineFormSet(instance=self.object)
-        context['formset_id'] = list(Card.objects.filter(owner=self.request.user).filter(work=self.kwargs['pk']).values_list('id',flat=True))
+        context['formset_id'] = list(Card.objects.filter(owner=self.request.user).filter(work=self.kwargs['pk']).values_list('id', flat=True))
         print(context['formset_id'])
         return context
 
@@ -91,19 +102,27 @@ class WorkUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class WorkDeleteView(LoginRequiredMixin, DeleteView):
+    """
+    사용자의 TODO (Work model)를 삭제하는 DeleteView
+    """
     model = Work
     success_url = reverse_lazy('todolist:index')
 
+    """사용자가 소유하지 않은 Work를 삭제하는 url 접근시 404 error 발생"""
     def get_queryset(self):
         work_delete_obj = Work.objects.filter(owner=self.request.user).filter(id=self.kwargs['pk'])
         return work_delete_obj
 
 
 class CardCreateView(LoginRequiredMixin, CreateView):
+    """
+    사용자의 TODO (Card model)를 생성하는 CreateView
+    """
     model = Card
     form_class = CardForm
     success_url = reverse_lazy('todolist:index')
 
+    """사용자가 소유하지 않은 Work에 TODO를 생성하는 url 접근시 404 error 발생"""
     def get_context_data(self, **kwargs):
         work = get_object_or_404(Work, id=self.kwargs['fk'])
         if str(self.request.user) != str(work.owner):
@@ -117,10 +136,14 @@ class CardCreateView(LoginRequiredMixin, CreateView):
 
 
 class CardUpdateView(LoginRequiredMixin, UpdateView):
+    """
+    사용자의 TODO (Card model)를 수정하는 UpdateView
+    """
     model = Card
     form_class = CardForm
     success_url = reverse_lazy('todolist:index')
 
+    """사용자가 소유하지 않은 Card를 수정하는 url 접근시 404 error 발생"""
     def get_context_data(self, **kwargs):
         if self.request.user != Card.objects.get(id=self.kwargs['pk']).owner:
             raise Http404
@@ -129,9 +152,13 @@ class CardUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class CardDeleteView(LoginRequiredMixin, DeleteView):
+    """
+    사용자의 TODO (Card model)를 삭제하는 DeleteView
+    """
     model = Card
     success_url = reverse_lazy('todolist:index')
 
+    """사용자가 소유하지 않은 Card를 삭제하는 url 접근시 404 error 발생"""
     def get_context_data(self, **kwargs):
         if self.request.user != Card.objects.get(id=self.kwargs['pk']).owner:
             raise Http404
