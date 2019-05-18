@@ -1,10 +1,7 @@
 from django.http import Http404
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
-
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-
-from .forms import CardForm, WorkForm
 
 from summercoding.views import LoginRequiredMixin
 from .models import Work, Card
