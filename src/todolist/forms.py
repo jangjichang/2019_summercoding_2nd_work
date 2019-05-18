@@ -5,18 +5,22 @@ from .models import Work, Card
 
 
 class DateInput(forms.DateInput):
+    """마감기한 입력 시 달력 위젯 사용"""
     input_type = 'date'
 
 
 class WorkPriorityInput(forms.Select):
+    """우선 순위 입력 시 높음, 중간, 낮음에서 선택하는 select 위젯 사용"""
     choices = Work.WORK_PRIORITY
 
 
 class CardPriorityInput(forms.Select):
+    """우선 순위 입력 시 높음, 중간, 낮음에서 선택하는 select 위젯 사용"""
     choices = Card.CARD_PRIORITY
 
 
 class CardForm(ModelForm):
+    """TODO (Card model) 생성, 수정 시 사용되는 Form"""
     class Meta:
         model = Card
         fields = ['name', 'description', 'deadline', 'priority', 'done']
@@ -26,6 +30,7 @@ class CardForm(ModelForm):
         }
 
 
+"""Work 생성 시 Card도 생성 할 수 있음"""
 CardInlineFormSet = inlineformset_factory(
                         Work,
                         Card,
@@ -35,6 +40,7 @@ CardInlineFormSet = inlineformset_factory(
 
 
 class WorkForm(ModelForm):
+    """TODO (Work model) 생성, 수정 시 사용되는 Form"""
     class Meta:
         model = Work
         fields = ['name', 'description', 'deadline', 'priority', 'done']
