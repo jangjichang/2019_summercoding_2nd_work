@@ -41,8 +41,8 @@
                 <li><a href="{% url 'logout' %}" class="text-white">로그아웃</a></li>
                 <li><a href="{% url 'password_change' %}" class="text-white">비밀번호 바꾸기</a></li>
               {% else %}
-                <li><a href="{% url 'register' %}" class="btn btn-primary my-2">회원가입</a></li>
-                <li><a href="{% url 'login' %}" class="btn btn-secondary my-2">로그인</a></li>
+                <li><a href="{% url 'register' %}" class="text-white">회원가입</a></li>
+                <li><a href="{% url 'login' %}" class="text-white">로그인</a></li>
               {% endif %}
               </ul>
               <h4 class="text-white">연락</h4>
