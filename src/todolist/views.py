@@ -102,3 +102,45 @@ class WorkDeleteView(LoginRequiredMixin, DeleteView):
     def get_queryset(self):
         work_delete_obj = Work.objects.filter(owner=self.request.user).filter(id=self.kwargs['pk'])
         return work_delete_obj
+
+
+class CardCreateView(LoginRequiredMixin, CreateView):
+    model = Card
+    form_class = CardForm
+    success_url = reverse_lazy('todolist:index')
+
+    def get_context_data(self, **kwargs):
+        work = get_object_or_404(Work, id=self.kwargs['fk'])
+        if str(self.request.user) != str(work.owner):
+            raise Http404
+        return super(CardCreateView, self).get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        form.instance.work = Work.objects.get(id=self.kwargs['fk'])
+        return super(CardCreateView, self).form_valid(form)
+
+
+class CardUpdateView(LoginRequiredMixin, UpdateView):
+    model = Card
+    form_class = CardForm
+    success_url = reverse_lazy('todolist:index')
+
+    def get_context_data(self, **kwargs):
+        if self.request.user != Card.objects.get(id=self.kwargs['pk']).owner:
+            raise Http404
+        else:
+            context = super(CardUpdateView, self).get_context_data(**kwargs)
+            return context
+
+
+class CardDeleteView(LoginRequiredMixin, DeleteView):
+    model = Card
+    success_url = reverse_lazy('todolist:index')
+
+    def get_context_data(self, **kwargs):
+        if self.request.user != Card.objects.get(id=self.kwargs['pk']).owner:
+            raise Http404
+        else:
+            context = super(CardDeleteView, self).get_context_data(**kwargs)
+            return context
