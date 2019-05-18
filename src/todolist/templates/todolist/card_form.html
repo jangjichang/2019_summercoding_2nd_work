@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}card_form.html{% endblock %}
+
+{% load staticfiles %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="album py-5 bg-light">
+    <div class="container">
+        <form action="." method="post">{% csrf_token %}
+            <div class="row">
+                <div class="col-md-4 col-sm-4">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-body">
+                            <h5 class="card-title">할 일</h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            {{ form|crispy }}
+                            <input type="submit" class="btn btn-primary" value="저장하기"/>
+                            {% if object %}
+                            <a class="btn btn-danger" href="{% url 'todolist:card_delete' object.work.id object.id %}">삭제하기</a>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
