@@ -36,19 +36,11 @@ Deploy
 - source code clone
 > $ git clone https://github.com/jangjichang/2019_summercoding_2nd_work.git
 
-- python3 설치
-> $ sudo apt-get install python3
-
-- pip 설치
-> $ sudo apt install python3-pip
-
-- virtualenv 설치
-> $ sudo pip3 install virtualenv
-
-- python3을 사용하는 가상 환경 'env' 만들기
-> $ virtualenv --python=python3 env
-
-- 가상환경 활성화
+- python3 관련 설치 및 설정
+> $ sudo apt-get install python3<br>
+> $ sudo apt install python3-pip<br>
+> $ sudo pip3 install virtualenv<br>
+> $ virtualenv --python=python3 env<br>
 > $ source env/bin/activate
 
 - 서버 실행을 위한 패키지 설치
