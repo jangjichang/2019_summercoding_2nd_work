@@ -5,6 +5,18 @@
 
 ![overview](img/overview.png)
 
+BackEnd
+- Python3
+- Django 2.1
+- SQLite3
+
+FrontEnd
+- Bootstrap 4
+
+Deploy
+- pythonanywhere
+
+
 ---
 # 목차
 1. 접속하여 테스트 가능한 URL
