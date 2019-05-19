@@ -19,13 +19,13 @@
   <body class="text-center">
     <form action="." method="post" class="form-signin">{% csrf_token %}
       <h1 class="h3 mb-3 font-weight-normal">회원가입</h1>
-
-      <!--<label for="id_username">Username:</label>-->
-      <!--<input type="text" name="username" maxlength="150" autofocus="" required="" id="id_username">-->
-      {% if form.errors %}
-        <p> {{ form.username.errors }} </p>
-        <p> {{ form.password.errors }} </p>
-      {% endif %}
+        <h5>아래 규칙을 지켜주세요.</h5>
+        <ul>
+            <li><p>비밀번호 최소 8자</p></li>
+            <li><p>전부 숫자인 비밀번호 불가</p></li>
+            <li><p>아이디와 비슷한 비밀번호 불가</p></li>
+            <li><p>흔한 비밀번호 불가 (123, abc 등)</p></li>
+        </ul>
       <label class="sr-only" for="{{ form.username.id_for_label }}">Username:</label>
       <input type="text" name="{{ form.username.name }}" id="{{ form.username.id_for_label }}" class="form-control" placeholder="아이디" required autofocus>
 
@@ -34,7 +34,17 @@
 
       <label class="sr-only" for="{{ form.password2.id_for_label }}">Password:</label>
       <input type="password" name="{{ form.password2.name }}" id="{{ form.password2.id_for_label }}" class="form-control" placeholder="비밀번호 확인" required>
-
+      {% if form.errors %}
+        <p class="text-white bg-danger">
+            {% if form.username.errors %}
+                {% for error in form.username.errors %}
+                {{ error|escape }}
+                {% endfor %}
+            {% else %}
+                비밀번호 규칙을 다시 확인하고 가입해주세요.
+            {% endif %}
+        </p>
+      {% endif %}
       <div class="checkbox mb-3"></div>
       <input type="submit" value="Register" class="btn btn-lg btn-primary btn-block"/>
     </form>
