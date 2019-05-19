@@ -24,7 +24,7 @@ Deploy
 
 ---
 
-1. [이 곳](jcjang.pythonanywhere.com)에 접속하여 테스트할 수 있습니다.
+1. [이 곳](http://jcjang.pythonanywhere.com/)에 접속하여 테스트할 수 있습니다.
 - [pythonanywhere](https://www.pythonanywhere.com/) Paas를 이용하여 배포
 
 ---
