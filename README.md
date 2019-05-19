@@ -57,7 +57,7 @@ Deploy
 > $ python manage.py runserver 127.0.0.1:8000 --insecure
 
 - 이제 웹 브라우저를 통해 127.0.0.1:8000에 접속하여 확인할 수 있습니다.
-
+![homepage](img/homepage.png)
 
 
 
