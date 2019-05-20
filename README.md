@@ -51,7 +51,6 @@ Deploy
 > $ cd src<br>
 > $ mkdir db<br>
 > $ python manage.py migrate<br>
-> $ export summercoding_now_env=dev
 
 - 서버 실행 명령어
 > $ python manage.py runserver 127.0.0.1:8000 --insecure
