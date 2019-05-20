@@ -34,7 +34,7 @@ Deploy
 > $ sudo apt install git-all
 
 - source code clone
-> $ git clone https://github.com/jangjichang/2019_summercoding_2nd_work.git
+> $ git clone `https://github.com/jangjichang/2019_summercoding_2nd_work.git`
 
 - python3 관련 설치 및 설정
 > $ sudo apt-get install python3<br>
