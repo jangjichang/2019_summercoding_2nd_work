@@ -20,7 +20,21 @@
 
         <!-- Modal body -->
         <div class="modal-body">
-            화면의 <strong>붉은 색</strong>영역에서 <strong>마감 기한이 지난</strong> 목록을 확인하세요.
+            <p>화면의 <strong>붉은 색</strong>영역에서 <strong>마감 기한이 지난</strong> 목록을 확인하세요.</p>
+
+            {% if deadline_over_works %}
+                <strong>마감 기한 지난 목록</strong>
+                {% for over_work in deadline_over_works %}
+                    <p>{{ over_work }}</p>
+                {% endfor %}
+            {% endif %}
+
+            {% if deadline_over_cards %}
+                <strong>마감 기한 지난 할 일</strong>
+                {% for over_card in deadline_over_cards %}
+                    <p>{{ over_card }}</p>
+                {% endfor %}
+            {% endif %}
         </div>
 
         <!-- Modal footer -->
