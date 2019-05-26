@@ -4,12 +4,43 @@
 {% load staticfiles %}
 
 {% block content %}
+<!-- Button to Open the Modal -->
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="display:None" id="message-show">
+  open</button>
+<!-- The Modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">알림창</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+        {% if messages %}
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        {% endif %}
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
 <div class="album py-5 bg-light">
     <div class="container">
         {% if deadline_over_works or deadline_over_cards %}
         <div class="row">
             {% if deadline_over_works %}
-            <div class="alert alert-danger col-md-4 col-sm-4">
+            <div class="alert alert-danger alert-dismissible col-md-4 col-sm-4">
                 <strong>마감기한이 지난 목록이 있어요.</strong>
                 {% for over_work in deadline_over_works %}
                     <p>{{ over_work }}</p>
@@ -17,7 +48,7 @@
             </div>
             {% endif %}
             {% if deadline_over_cards %}
-            <div class="alert alert-danger col-md-4 {% if deadline_over_works %} offset-md-1 col-sm-4 offset-sm-1 {% endif %}">
+            <div class="alert alert-danger alert-dismissible col-md-4 {% if deadline_over_works %} offset-md-1 col-sm-4 offset-sm-1 {% endif %}">
                 <strong>마감기한 지난 할 일이 있어요.</strong>
                 {% for over_card in deadline_over_cards %}
                     <p>{{ over_card }}</p>
@@ -86,4 +117,9 @@
         </div>
     </div>
 </div>
+{% block script %}
+<script>
+    document.getElementById("message-show").click();
+</script>
+{% endblock %}
 {% endblock %}
