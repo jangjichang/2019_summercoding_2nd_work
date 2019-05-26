@@ -12,15 +12,15 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 
-from .dev_settings import *
+# from .dev_settings import *
 
 """
 개발 환경이 아닌 경우, 배포 환경으로 셋팅함
 """
-# if os.environ.get("summercoding_now_env", default='dev') == 'dev':
-#     from .dev_settings import *
-# else:
-#     from .deploy_settings import *
+if os.environ.get("summercoding_now_env", default='dev') == 'dev':
+    from .dev_settings import *
+else:
+    from .deploy_settings import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
