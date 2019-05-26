@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.http import Http404
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
@@ -26,6 +27,8 @@ class WorkCardLV(LoginRequiredMixin, ListView):
         today = datetime.datetime.now().strftime('%Y-%m-%d')
         deadline_over_works = Work.objects.filter(owner=self.request.user).filter(deadline__lte=today).filter(done=False)
         deadline_over_cards = Card.objects.filter(owner=self.request.user).filter(deadline__lte=today).filter(done=False)
+        if deadline_over_cards or deadline_over_works:
+            messages.warning(self.request, '마감기한이 지난 할 일들이 있습니다.')
         if deadline_over_works:
             context['deadline_over_works'] = deadline_over_works
         if deadline_over_cards:
