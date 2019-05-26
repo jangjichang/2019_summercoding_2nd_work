@@ -115,7 +115,9 @@
 </div>
 {% block script %}
 <script>
+    {% if deadline_over_works or deadline_over_cards %}
     document.getElementById("message-show").click();
+    {% endif %}
 </script>
 {% endblock %}
 {% endblock %}
