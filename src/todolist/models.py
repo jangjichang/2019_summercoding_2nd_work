@@ -12,6 +12,12 @@ class Work(models.Model):
     description = models.CharField(max_length=50, blank=True, verbose_name="내용")
     deadline = models.DateField(blank=True, null=True, verbose_name="마감 기한")
 
+    def job_done(self):
+        return self.done
+
+    job_done.admin_order_field = 'done'
+    job_done.boolean = True
+
     WORK_PRIORITY = (
         ('1', '낮음'),
         ('2', '중간'),
@@ -35,6 +41,12 @@ class Card(models.Model):
     description = models.CharField(max_length=50, blank=True, verbose_name="내용")
     work = models.ForeignKey(Work, on_delete=models.CASCADE)
     deadline = models.DateField(blank=True, null=True, verbose_name="마감 기한")
+
+    def job_done(self):
+        return self.done
+
+    job_done.admin_order_field = 'done'
+    job_done.boolean = True
 
     CARD_PRIORITY = (
         ('1', '낮음'),
