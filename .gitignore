@@ -128,3 +128,6 @@ dmypy.json
 
 # static file
 www_dir/
+
+# email server settings
+email_setting.py
