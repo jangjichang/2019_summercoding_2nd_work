@@ -18,7 +18,7 @@ home.html
           <a href="{% url 'password_change' %}" class="btn btn-secondary my-2">비밀번호 바꾸기</a>
           <a href="{% url 'todolist:index' %}" class="btn btn-danger my-2">내 목록 확인하기</a>
         {% else %}
-          <a href="{% url 'register' %}" class="btn btn-primary my-2">회원가입</a>
+          <a href="{% url 'signup' %}" class="btn btn-primary my-2">회원가입</a>
           <a href="{% url 'login' %}" class="btn btn-secondary my-2">로그인</a>
         {% endif %}
       </p>
